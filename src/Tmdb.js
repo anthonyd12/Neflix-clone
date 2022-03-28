@@ -23,44 +23,63 @@ export default {
         return [
             {
                 slug: 'originals',
-                title: 'Originals of Netflix',
+                title: 'Originals Netflix',
                 itens: await basicFetch(`/discover/tv?with_network=213&language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug: 'Trending',
+                slug: 'trending',
                 title: 'Recomend to you',
                 itens: await basicFetch(`/trending/all/week?language=ptBR&api_key=${API_KEY}`)
             },
             {
-                slug: 'Top Rated',
+                slug: 'topRated',
                 title: 'Films of Moment',
                 itens: await basicFetch(`/movie/top_rated?language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug: 'Action',
+                slug: 'action',
                 title: 'Action',
                 itens: await basicFetch(`/discover/movie?with_genres=28&language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug: 'Comedy',
+                slug: 'comedy',
                 title: 'Comedy',
                 itens: await basicFetch(`/discover/movie?with_genres=35&language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug: 'Horror',
+                slug: 'horror',
                 title: 'Horror',
                 itens: await basicFetch(`/discover/movie?with_genres=27&language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug:'Romance',
+                slug:'domance',
                 title: 'Romance',
                 itens: await basicFetch(`/discover/movie?with_genres=10749&language=pt-BR&api_key=${API_KEY}`)
             },
             {
-                slug:'Documentary',
+                slug:'documentary',
                 title: 'Documentary',
                 itens: await basicFetch(`/discover/movie?with_genres=99&language=pt-BR&api_key=${API_KEY}`)
             },
         ]
+    },
+    getMovieInfo: async (movieId, type) => {
+        let info = {};
+
+        if(movieId){
+            switch(type){
+                case 'movie':
+                        info = await basicFetch(`/movie/${movieId}?language=pt-BR&api_key=${API_KEY}`);
+                    break;
+                    case 'tv':
+                        info = await basicFetch(`/tv/${movieId}?language=pt-BR&api_key=${API_KEY}`);
+                        break;
+                        default:
+                            info=null;
+                            break;
+            }
+        }
+
+        return info
     }
 }
